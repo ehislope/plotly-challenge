@@ -5,7 +5,7 @@ function init() {
   
     // connect to data and add subject "names" to dropdown options
     d3.json("samples.json").then((subjectData) => {
-      console.log(subjectData);
+      // console.log(subjectData);
       var subjectNames = subjectData.names;
   
       subjectNames.forEach((subject) => {
@@ -14,8 +14,8 @@ function init() {
   
       // Use the first subject to build default plots
       var firstSubject = subjectNames[0];
-      buildCharts(firstSubject );
-      buildDemoinfo(firstSubject );
+      buildCharts(firstSubject);
+      buildDemoinfo(firstSubject);
     });
   }
   
@@ -27,12 +27,12 @@ function init() {
 // build demographic info panel
   function buildDemoinfo(subject) {
     d3.json("samples.json").then((subjectData) => {
-      console.log(subjectData);
+      // console.log(subjectData);
       var demoData= subjectData.metadata;
       // Filter data to get to info for selected sample "name"
       var subjectArray = demoData.filter(sampleObj => sampleObj.id == subject);
       var result = subjectArray[0];
-      console.log(result);
+      // console.log(result);
       var panel = d3.select("#sample-metadata");
   
       // clear data
@@ -43,21 +43,22 @@ function init() {
       });
   
       // BONUS: Build the Gauge Chart
-      // buildGauge(result.wfreq);
+      //  buildGauge(result.wfreq);
     });
   }
   // build charts
   function buildCharts(subject) {
       d3.json("samples.json").then((subjectData) => {
-        console.log(subjectData);
+        // console.log(subjectData);
         var samples = subjectData.samples;
         var subjectArray = samples.filter(sampleObj => sampleObj.id == subject);
         var result = subjectArray[0];
-        console.log(result);
+        // console.log(result);
   
       var otu_ids = result.otu_ids;
       var otu_labels = result.otu_labels;
       var sample_values = result.sample_values;
+      var wash_freq = result.wfreq;
 
       var labels = otu_ids.slice(0, 10).map(otuID => `OTU ${otuID}`);
       var barData = [
@@ -71,7 +72,7 @@ function init() {
       ];
   
       var barLayout = {
-        title: "Top 10 Bacteria Cultures Found",
+        title: "Top 10 Bacteria Found",
       };
   
       Plotly.newPlot("bar", barData, barLayout);
@@ -93,15 +94,28 @@ function init() {
       ];
       
       var bubbleLayout = {
-        title: "Bacteria Cultures Per Sample",
-        margin: { t: 0 },
-        hovermode: "closest",
+        title: "Bacteria Samples",
         xaxis: { title: "OTU ID" },
-        margin: { t: 30}
+        height: 500,
+        width: 1200
       };
+
       Plotly.newPlot("bubble", bubbleData, bubbleLayout);
   
     });
+    
+    // var gaugeData = [
+    //   {
+    //     domain: { x: [0, 1], y: [0, 1] },
+    //     value: wash_freq,
+    //     title: { text: "Belly Button Washing Frequency" },
+    //     type: "indicator",
+    //     mode: "gauge+number"
+    //   }
+    // ];
+    
+    // var gaugeLayout = { width: 600, height: 500, margin: { t: 0, b: 0 } };
+    // Plotly.newPlot("gauge", gaugeData, gaugeLayout);
   }
   
   // Initialize the dashboard
