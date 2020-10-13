@@ -30,7 +30,7 @@ function init() {
       // console.log(subjectData);
       var demoData= subjectData.metadata;
       // Filter data to get to info for selected sample "name"
-      var subjectArray = demoData.filter(sampleObj => sampleObj.id == subject);
+      var subjectArray = demoData.filter(sampleObject => sampleObject.id == subject);
       var result = subjectArray[0];
       // console.log(result);
       var panel = d3.select("#sample-metadata");
@@ -49,11 +49,11 @@ function init() {
   // build charts
   function buildCharts(subject) {
       d3.json("samples.json").then((subjectData) => {
-        // console.log(subjectData);
+        console.log(subjectData);
         var samples = subjectData.samples;
-        var subjectArray = samples.filter(sampleObj => sampleObj.id == subject);
+        var subjectArray = samples.filter(sampleObject => sampleObject.id == subject);
         var result = subjectArray[0];
-        // console.log(result);
+        console.log(result);
   
       var otu_ids = result.otu_ids;
       var otu_labels = result.otu_labels;
@@ -104,19 +104,19 @@ function init() {
   
     });
     
-    // var gaugeData = [
-    //   {
-    //     domain: { x: [0, 1], y: [0, 1] },
-    //     value: wash_freq,
-    //     title: { text: "Belly Button Washing Frequency" },
-    //     type: "indicator",
-    //     mode: "gauge+number"
-    //   }
-    // ];
-    
-    // var gaugeLayout = { width: 600, height: 500, margin: { t: 0, b: 0 } };
-    // Plotly.newPlot("gauge", gaugeData, gaugeLayout);
-  }
+//     var gaugeData = [
+//       {
+//         domain: { x: [0, 1], y: [0, 1] },
+//         value: wash_freq,
+//         title: { text: "Belly Button Washing Frequency" },
+//         type: "indicator",
+//         mode: "gauge+number"
+//       }
+//     ];
+ 
+//     var gaugeLayout = { width: 600, height: 500, margin: { t: 0, b: 0 } };
+//     Plotly.newPlot("gauge", gaugeData, gaugeRange, gaugeLayout);
+}
   
   // Initialize the dashboard
   init();
