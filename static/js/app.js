@@ -41,9 +41,6 @@ function init() {
       Object.entries(result).forEach(([key, value]) => {
         panel.append("h6").text(`${key}: ${value}`);
       });
-  
-      // BONUS: Build the Gauge Chart
-      //  buildGauge(result.wfreq);
     });
   }
   // build charts
